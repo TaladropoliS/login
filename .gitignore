@@ -1,0 +1,11 @@
+*/__pycache__/*
+__pycache__/
+.vscode/
+.vscode
+env/
+venv/
+py3/
+db.sqlite3
+*.psd
+*.pdf
+*.txt
