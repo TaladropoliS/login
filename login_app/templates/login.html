@@ -62,32 +62,32 @@
                         </ul>
                         {% endif %}
 
-                        <label for="nombre" class="form-label">Nombre (solo letras, mínimo 2 caracteres)</label>
+                        <label for="registro" class="form-label">Nombre (solo letras, mínimo 2 caracteres)</label>
                         <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Nombre">
 
-                        <label for="apellido" class="form-label">Apelllido (solo letras, mínimo 2 caracteres)</label>
+                        <label for="registro" class="form-label">Apelllido (solo letras, mínimo 2 caracteres)</label>
                         <input type="text" id="apellido" name="apellido" class="form-control" placeholder="Apellido">
 
-                        <label for="cumple" class="form-label mt-4">Fecha en que naciste</label>
+                        <label for="registro" class="form-label mt-4">Fecha en que naciste</label>
                         <input type="date" id="cumple" name="cumple" class="form-control">
 
-                        <label for="email" class="form-label">Email</label>
+                        <label for="registro" class="form-label">Email</label>
                         <input type="text" id="email" name="email" class="form-control" placeholder="email">
 
-                        <label for="password" class="form-label">Password</label>
+                        <label for="registro" class="form-label">Password</label>
                         <input type="text" id="password" name="password" class="form-control" placeholder="password">
 
-                        <label for="repassword" class="form-label">Reingresar password</label>
+                        <label for="registro" class="form-label">Reingresar password</label>
                         <input type="text" id="repassword" name="repassword" class="form-control" placeholder="password">
 
                     </div>
-                    <input type="submit" id="registrarse" name="registrarse" value="Registrarse" class="btn btn-dark m-l-4"></button>
+                    <input type="submit" for="registro" id="registrarse" name="registrarse" value="Registrarse" class="btn btn-dark m-l-4"></button>
                 </form>
             </div>
 
             <div class="col-sm-6 pt-3">
                 <h3 class="">LOG IN</h3>
-                <form id="crear" name="crear" action="crear" method="post"> {% csrf_token %}
+                <form id="login" name="login" action="login" method="post"> {% csrf_token %}
                     <div class="mb-3 p-2">
 
                         {% if messages %}
@@ -97,14 +97,14 @@
                             {% endfor %}
                         </ul>
                         {% endif %}
-                        <label for="email" class="form-label">Email</label>
-                        <input type="text" id="email" name="email" class="form-control" placeholder="email">
+                        <label for="login" class="form-label">Email</label>
+                        <input type="text" id="login_email" name="login_email" class="form-control" placeholder="email">
 
-                        <label for="password" class="form-label">Password</label>
-                        <input type="text" id="password" name="password" class="form-control" placeholder="password">
+                        <label for="login" class="form-label">Password</label>
+                        <input type="text" id="login_password" name="login_password" class="form-control" placeholder="password">
 
                     </div>
-                    <input type="submit" id="ingresar" name="ingresar" value="logIn" class="btn btn-dark m-l-4"></button>
+                    <input type="submit" for="login" id="login" name="login" value="login" class="btn btn-dark m-l-4"></button>
                 </form>
             </div>
 

@@ -7,7 +7,7 @@ class UsuarioManager(models.Manager):
     def validador_usuario(self, postData):
         errors = {}
         EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
-        if not EMAIL_REGEX.match(postData['email']):  # probar si un campo coincide con el patrón
+        if not EMAIL_REGEX.match(postData['email']):
             errors["email"] = "Ingresar EMAIL válido."
 
         if len(postData['nombre']) < 2:
@@ -24,7 +24,7 @@ class UsuarioManager(models.Manager):
             errors["password"] = "Ingresar PASSWORD válido."
         if postData['password'] != postData['repassword']:
             error['repassword'] = "Las PASSWORD no coinciden."
-        if Usuario.objects.filter(registro__email__icontains=postData['email']):
+        if Usuario.objects.filter(cuenta__email__icontains=postData['email']):
             error['email_usado'] = "El email ingresado ya se encuentra registrado."
         return errors
 
