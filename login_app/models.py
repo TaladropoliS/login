@@ -1,44 +1,58 @@
 from __future__ import unicode_literals
 from django.db import models
+from datetime import date, datetime
 import re
 import bcrypt
 
 class UsuarioManager(models.Manager):
-    def validador_usuario(self, postData):
-        errors = {}
+    def validador_registro(self, postData):
+        error_reg = {}
         EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
         if not EMAIL_REGEX.match(postData['email']):
-            errors["email"] = "Ingresar EMAIL válido."
+            error_reg["email"] = "Ingresar email válido."
 
         if len(postData['nombre']) < 2:
-            errors["nombre"] = "Ingresar NOMBRE válido."
+            error_reg["nombre"] = "Ingresar nombre válido."
         if not str.isalpha(postData['nombre']):
-            errors["nombre"] = "Ingresar NOMBRE válido."
+            error_reg["nombre"] = "Ingresar nombre válido."
         if len(postData['apellido']) < 2:
-            errors["apellido"] = "Ingresar APELLIDO válido."
+            error_reg["apellido"] = "Ingresar apellido válido."
         if not str.isalpha(postData['apellido']):
-            errors["apellido"] = "Ingresar APELLIDO válido."
-        if len(postData['cumple']) < 13:
-            errors["cumple"] = "Solo puedes logearte si tienes 13 años o más."
+            error_reg["apellido"] = "Ingresar apellido válido."
+
+        if postData['cumple']:
+            actual = date.today()
+            nacimiento = date.fromisoformat(postData['cumple'])
+            edad = actual.year - nacimiento.year
+            if edad < 13:
+                error_reg["cumple"] = "Solo puedes logearte si tienes 13 años o más."
+        else:
+            error_reg["cumple"] = "Debes ingresar tu fecha de nacimiento"
+
         if len(postData['password']) < 8:
-            errors["password"] = "Ingresar PASSWORD válido."
+            error_reg["password"] = "Ingresar password válido."
         if postData['password'] != postData['repassword']:
-            error['repassword'] = "Las PASSWORD no coinciden."
-        if Usuario.objects.filter(cuenta__email__icontains=postData['email']):
-            error['email_usado'] = "El email ingresado ya se encuentra registrado."
-        return errors
+            error_reg['repassword'] = "Las password no coinciden."
+
+        if postData['email']:
+            if Usuario.objects.filter(cuenta__email__icontains=postData['email']):
+                error_reg['email_usado'] = "El email ingresado ya se encuentra registrado."
+        else:
+            error_reg['email_usado'] = "Debes ingresar un email"
+        return error_reg
 
     def validador_login(self, postData):
-        error = {}
-        user = Usuario.objects.get(cuenta__email=str(postData['login_email']))
-        if user:
+        error_log = {}
+        try:
+            user = Usuario.objects.get(cuenta__email=str(postData['login_email']))
             if bcrypt.checkpw(postData['login_password'].encode(), user.cuenta.password.encode()):
-                return error
+                return error_log
             else:
-                error['password-revision'] = "La contraseña ingresada no es valida"
-        else:
-            error['login_email'] = f"{postData['login_email']} no se encuentra registrado"
-        return error
+                error_log['password'] = "La contraseña ingresada no es valida"
+                return error_log
+        except:
+            error_log['login_email'] = "El email ingresado no se encuentra registrado"
+            return error_log
 
     def validador_password(self, postData):
         hash1 = bcrypt.hashpw(postData['password'].encode(), bcrypt.gensalt()).decode()
