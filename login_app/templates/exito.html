@@ -18,7 +18,7 @@
 
     <!-- <link rel="shortcut icon" type="image/x-icon" href="../static/img/favicon.ico"> -->
 
-    <title>Cursos</title>
+    <title>LogIn</title>
 
 </head>
 
@@ -27,7 +27,7 @@
     <nav class="navbar navbar-expand-md navbar-light bg-light">
         <div class="container-fluid mx-5 ">
             <a class="navbar-brand" href="/">
-                <img src="../static/img/cursos.png" width="175px" alt="60 minutos">
+                <img src="../static/img/login.png" width="175px" alt="LogIn">
             </a>
 
             <!-- Menu hamburguesa -->
@@ -38,7 +38,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/">Agregar curso</a>
+                        <a class="nav-link" aria-current="page" href="/">log Out</a>
                     </li>
                 </ul>
             </div>
@@ -46,44 +46,31 @@
     </nav>
     <!-- FIN NAVBAR -->
 
-    <div class="container-lg bg-light mb-5 mt-2">
+    <div class="container-lg bg-light my-5 mt-2">
         <hr style="color: #0056b2" />
-        <h3 class="">¿Estás seguro que quieres eliminar este curso?</h3>
-        <div class="row">
+        <div class="row" style="height: 350px">
             <div class="col-sm-8 pt-3">
-                <h4>Nombre:</h4>
-                <p class="py-3 px-3 text-light bg-success">{{ curso.nombre }}></p>
-
-                <h4>Descripción:</h4>
-                <p class="py-3 px-3 text-light bg-success">{{ curso.descripcion.desc }}</p>
-
+                <h2>Ingreso OK</h2>
+                <h4 class="">Bienvenido: <b>{{ usuario.nombre }}</b></h4>
+                <p>Tu registro o logIn fue exitoso</p>
             </div>
-            <div class="col-sm-4 pt-3">
-                <img src="../static/img/curso_eliminar.png" width="300px" alt="Cursos">
-            </div>
-        </div>
 
-        <div class="row">
-            <form class="col-sm-1 pt-3" id="no_eliminar" name="no_eliminar" action="no_eliminar/{{curso.id}}" method="post"> {% csrf_token %}
-                <div class="">
-                    <input type="submit" id="no_eliminar" name="no_eliminar" value="NO" class="btn btn-success m-l-4"></button>
-                </div>
-            </form>
-            <form class="col-sm-2 pt-3" id="si_eliminar" name="si_eliminar" action="si_eliminar/{{curso.id}}" method="post"> {% csrf_token %}
-                <div class="">
-                    <input type="submit" id="si_eliminar" name="si_eliminar" value="SI, quiero eliminar este curso" class="btn btn-danger m-l-4"></button>
-                </div>
-            </form>
+            <div class="col-lg-4 pt-5">
+                <div class="col-sm-4 pt-5" style="height: 250px"></div>
+                <img src="../static/img/login.png" width="300px" alt="Cursos">
+            </div>
+
         </div>
     </div>
 
     <!-- FOOTER -->
 
     <div id="footer " class="bg-dark ">
-        <div class="container w-50">
+        <div class="container w-50 ">
             <div class="row justify-content-md-center py-4 ">
                 <div class="col text-center font-weight-light text-light ">
-                    <h5>CURSOS | CodingDojo</p>
+                    <p>LogIn | TaladropoiS | CodingDojo</p>
+                    <p>Fernando Taladriz</p>
                 </div>
             </div>
             <div class="row "></div>
