@@ -48,66 +48,72 @@
 
     <div class="container-lg bg-light mb-5 mt-2">
         <hr style="color: #0056b2" />
-        <div class=" row">
-            <div class="col-sm-6 pt-3">
+        <div class=" row pe-2">
+            <div class="col-sm-8 pt-3">
                 <h3 class="">REGISTRO</h3>
                 <form id="registro" name="registro" action="registro" method="post"> {% csrf_token %}
                     <div class="mb-3 p-2">
-
-                        {% if messages %}
-                        <ul class="text-warning bg-dark messages">
-                            {% for message in messages %}
-                            <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
-                            {% endfor %}
-                        </ul>
-                        {% endif %}
-
-                        <label for="registro" class="form-label">Nombre (solo letras, mínimo 2 caracteres)</label>
-                        <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Nombre">
-
-                        <label for="registro" class="form-label">Apelllido (solo letras, mínimo 2 caracteres)</label>
-                        <input type="text" id="apellido" name="apellido" class="form-control" placeholder="Apellido">
-
-                        <label for="registro" class="form-label mt-4">Fecha en que naciste</label>
-                        <input type="date" id="cumple" name="cumple" class="form-control">
-
-                        <label for="registro" class="form-label">Email</label>
-                        <input type="text" id="email" name="email" class="form-control" placeholder="email">
-
-                        <label for="registro" class="form-label">Password</label>
-                        <input type="password" id="password" name="password" class="form-control" placeholder="password">
-
-                        <label for="registro" class="form-label">Reingresar password</label>
-                        <input type="password" id="repassword" name="repassword" class="form-control" placeholder="reingresar password">
-
+                        <div class="row">
+                            <div class=" col-sm-6">
+                                <label for="registro" class="form-label">Nombre (solo letras, mínimo 2 caracteres)</label>
+                                <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Nombre">
+                            </div>
+                            <div class=" col-sm-6">
+                                <label for="registro" class="form-label">Apelllido (solo letras, mínimo 2 caracteres)</label>
+                                <input type="text" id="apellido" name="apellido" class="form-control" placeholder="Apellido">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class=" col-sm-6 mt-3">
+                                <label for="registro" class="form-label">Fecha en que naciste</label>
+                                <input type="date" id="cumple" name="cumple" class="form-control">
+                            </div>
+                            <div class=" col-sm-6 mt-3">
+                                <label for="registro" class="form-label">Email</label>
+                                <input type="text" id="email" name="email" class="form-control" placeholder="email">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class=" col-sm-6 mt-3">
+                                <label for="registro" class="form-label">Password (mínimno 8 caracteres)</label>
+                                <input type="password" id="password" name="password" class="form-control" placeholder="password">
+                            </div>
+                            <div class=" col-sm-6 mt-3">
+                                <label for="registro" class="form-label">Reingresar password</label>
+                                <input type="password" id="repassword" name="repassword" class="form-control" placeholder="reingresar password">
+                            </div>
+                        </div>
                     </div>
                     <input type="submit" for="registro" id="registrarse" name="registrarse" value="Registrarse" class="btn btn-dark m-l-4"></button>
                 </form>
             </div>
 
-            <div class="col-sm-6 pt-3">
+            <div class="col-sm-4 pt-3 bg-secondary rounded">
                 <h3 class="">LOG IN</h3>
                 <form id="login" name="login" action="login" method="post"> {% csrf_token %}
                     <div class="mb-3 p-2">
-
-                        {% if messages %}
-                        <ul class="text-warning bg-dark messages">
-                            {% for message in messages %}
-                            <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
-                            {% endfor %}
-                        </ul>
-                        {% endif %}
                         <label for="login" class="form-label">Email</label>
                         <input type="text" id="login_email" name="login_email" class="form-control" placeholder="email">
 
-                        <label for="login" class="form-label">Password</label>
+                        <label for="login" class="form-label mt-3">Password</label>
                         <input type="password" id="login_password" name="login_password" class="form-control" placeholder="password">
-
                     </div>
                     <input type="submit" for="login" id="login" name="login" value="login" class="btn btn-dark m-l-4"></button>
                 </form>
             </div>
-
+            <div class="row">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-6  text-warning bg-dark mt-1 rounded">
+                    {% if messages %}
+                    <ul class="mt-2 messages">
+                        {% for message in messages %}
+                        <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                <div class="col-sm-3"></div>
+            </div>
         </div>
     </div>
 

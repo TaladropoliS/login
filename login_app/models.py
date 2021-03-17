@@ -1,22 +1,33 @@
 from __future__ import unicode_literals
 from django.db import models
-from datetime import date, datetime
+from datetime import date
 import re
 import bcrypt
 
 class UsuarioManager(models.Manager):
     def validador_registro(self, postData):
         error_reg = {}
-        EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
-        if not EMAIL_REGEX.match(postData['email']):
-            error_reg["email"] = "Ingresar email válido."
+
+        if postData['email']:
+            if Usuario.objects.filter(cuenta__email__icontains=postData['email']):
+                error_reg['email_usado'] = "El email ingresado ya se encuentra registrado."
+        else:
+            error_reg['email_usado'] = "Debes ingresar un email"
+
+        if postData['email']:
+            EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
+            if not EMAIL_REGEX.match(postData['email']):
+                error_reg["email"] = "Ingresar email válido."
 
         if len(postData['nombre']) < 2:
             error_reg["nombre"] = "Ingresar nombre válido."
+
         if not str.isalpha(postData['nombre']):
             error_reg["nombre"] = "Ingresar nombre válido."
+
         if len(postData['apellido']) < 2:
             error_reg["apellido"] = "Ingresar apellido válido."
+
         if not str.isalpha(postData['apellido']):
             error_reg["apellido"] = "Ingresar apellido válido."
 
@@ -31,14 +42,10 @@ class UsuarioManager(models.Manager):
 
         if len(postData['password']) < 8:
             error_reg["password"] = "Ingresar password válido."
+
         if postData['password'] != postData['repassword']:
             error_reg['repassword'] = "Las password no coinciden."
 
-        if postData['email']:
-            if Usuario.objects.filter(cuenta__email__icontains=postData['email']):
-                error_reg['email_usado'] = "El email ingresado ya se encuentra registrado."
-        else:
-            error_reg['email_usado'] = "Debes ingresar un email"
         return error_reg
 
     def validador_login(self, postData):
